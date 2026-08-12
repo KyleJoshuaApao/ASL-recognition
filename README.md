@@ -1,32 +1,55 @@
-# Sign Language Recognition
+# ASL Alphabet & Number Recognition System
 
-This project uses MediaPipe for hand and pose tracking and an LSTM neural network (via TensorFlow/Keras) for recognizing dynamic sign language gestures.
+A real-time American Sign Language (ASL) recognition system. It uses **MediaPipe** for hand and pose landmark extraction and a **PyTorch LSTM Neural Network** to predict the ASL Alphabet (**A to Z**) and Numbers (**1 to 9**) directly from a live camera feed.
 
-## Setup Instructions
+The repository comes pre-loaded with a trained **`action.pth`** model, so other users can run it instantly without needing to download large datasets or train it themselves.
 
-1. **Install Requirements**:
-   Make sure you have python installed, and run:
-   ```bash
-   pip install -r requirements.txt
-   ```
+---
 
-2. **Collect Data**:
-   Run the data collection script to record your own dataset. It will record 30 sequences (videos) of 30 frames each for the actions `hello`, `thanks`, and `iloveyou`.
-   ```bash
-   python data_collection.py
-   ```
-   Follow the on-screen prompts to perform the signs.
+## 🚀 How to Run (For New Users)
 
-3. **Train the Model**:
-   After collecting data, train the LSTM model by running:
-   ```bash
-   python train.py
-   ```
-   This will output an `action.h5` file containing the trained weights.
+You can run the application immediately using the pre-trained model:
 
-4. **Real-time Inference**:
-   Once the model is trained, you can run the inference script to predict signs in real-time from your webcam:
-   ```bash
-   python inference.py
-   ```
-   Press `q` to quit the application.
+### 1. Install Requirements
+Ensure you have Python installed, then open your terminal in the project directory and run:
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run the Web Application
+Launch the Flask web server:
+```bash
+python app.py
+```
+
+### 3. Open in Browser
+Open your web browser and go to:
+👉 **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
+
+Place your hand in front of your webcam, and the system will start predicting your ASL signs in real-time!
+
+---
+
+## 🛠️ Developer Pipeline (Optional)
+
+If you want to customize the signs or re-train the model from scratch, you can use these tools:
+
+### 1. Data Collection
+To collect new coordinate data from your webcam:
+```bash
+python collect_data.py
+```
+This will record sequences of keypoint arrays and save them in the `MP_Data/` directory.
+
+### 2. Model Training
+To train the neural network on the current keypoints in `MP_Data/`:
+```bash
+python train.py
+```
+This will compile the model and overwrite the **`action.pth`** file with your newly trained weights.
+
+### 3. Desktop Inference (No Web UI)
+To run predictions directly in a raw OpenCV window:
+```bash
+python inference.py
+```
