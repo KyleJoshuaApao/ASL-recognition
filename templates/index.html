@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Recognition System</title>
+    <!-- Google Fonts for elegant typography matching the image -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Main Content Area -->
+    <main class="main-content" style="padding-top: 40px;">
+
+        <!-- Camera Container (replacing the grid from the image) -->
+        <section class="app-container">
+            <div class="camera-wrapper">
+                {% if actions %}
+                <div class="vocabulary-list" style="margin-bottom: 15px;">
+                    <span style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-right: 10px;">Available Signs:</span>
+                    {% for action in actions %}
+                        <span style="background: #eee; padding: 4px 10px; border-radius: 20px; font-size: 13px; margin-right: 5px; color: #444;">{{ action }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <img id="video_feed" src="{{ url_for('video_feed') }}" alt="Webcam Feed">
+                
+                <div class="prediction-overlay">
+                    <p class="prediction-label">Prediction</p>
+                    <h2 id="prediction-text">Waiting for model...</h2>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Script to fetch prediction stream in the future -->
+    <script>
+        // Poll the prediction endpoint every 500ms
+        setInterval(async () => {
+            try {
+                const response = await fetch('/prediction');
+                const data = await response.json();
+                document.getElementById('prediction-text').innerText = data.prediction;
+            } catch (error) {
+                console.error("Error fetching prediction:", error);
+            }
+        }, 500);
+    </script>
+</body>
+</html>

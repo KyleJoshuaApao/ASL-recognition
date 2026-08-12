@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch Model Weights
+*.pth
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# MediaPipe feature extracts & Raw Video Data
+MP_Data/
+raw_data/
+how2sign_data/
+
+# SQLite databases
+*.db
+
+# Temporary images
+tmp.jpg
+
+# MediaPipe model files
+*.task
+
+# Executables / Installers
+*.exe
+*.msi
+
+# Large JSON/txt files
+WLASL_v0.3.json
+how2sign.html
+
+.system_generated/

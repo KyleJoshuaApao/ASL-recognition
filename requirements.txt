@@ -1,0 +1,9 @@
+opencv-python
+mediapipe
+numpy
+scikit-learn
+matplotlib
+torch
+flask
+pyodbc
+SQLAlchemy
